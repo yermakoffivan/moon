@@ -1134,6 +1134,11 @@ mod tests {
             runtime_compile_command,
             "native/debug/build/runtime-runtime.obj"
         ));
+        assert!(
+            runtime_compile_command
+                .iter()
+                .any(|arg| arg == moonutil::compiler_flags::WINDOWS_MSVC_C_STANDARD_FLAG)
+        );
 
         let runtime_archive_command = lowered
             .command_args_by_output
@@ -1164,6 +1169,11 @@ mod tests {
             stub_compile_command
                 .iter()
                 .any(|arg| arg == moonutil::compiler_flags::WINDOWS_MSVC_STATIC_RUNTIME_FLAG)
+        );
+        assert!(
+            stub_compile_command
+                .iter()
+                .any(|arg| arg == moonutil::compiler_flags::WINDOWS_MSVC_C_STANDARD_FLAG)
         );
 
         let moonc_inputs = n2_input_paths_for_command(&lowered, |command| {
